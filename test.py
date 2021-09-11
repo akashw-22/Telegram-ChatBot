@@ -1,12 +1,17 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import random
+import os
+from boto.s3.connection import S3Connection
+
+TOKEN = os.environ['API_KEY']
+PORT = int(os.environ.get('PORT', '8443'))
+URL = os.environ['URL']
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                      level=logging.INFO)
 
-
-updater = Updater(token = 'TOKEN', use_context = True) #Use the api key given from BotFather
+updater = Updater(token = TOKEN, use_context = True) #Use the api key given from BotFather
 dispatcher = updater.dispatcher
 
 theri = ["andi", "punda", "koothi", "myran", "shuklam", "beejam", "poori", "kakkos", "pundachi", "punda", "shuklamtheeni", "Kannappi", "thayli"]
@@ -54,4 +59,8 @@ dispatcher.add_handler(startHandler)
 dispatcher.add_handler(echoHandler)
 dispatcher.add_handler(pooreHandler)
 updater.start_polling()
+updater.start_webhook(listen="0.0.0.0",
+                      port=PORT,
+                      url_path=TOKEN,
+                      webhook_url= URL + TOKEN)
 updater.idle()
