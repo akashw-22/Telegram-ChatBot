@@ -57,7 +57,6 @@ pooreHandler = CommandHandler('poore', poore)
 dispatcher.add_handler(startHandler)
 dispatcher.add_handler(echoHandler)
 dispatcher.add_handler(pooreHandler)
-updater.start_polling()
 updater.start_webhook(listen="0.0.0.0",
                       port=PORT,
                       url_path=TOKEN,
