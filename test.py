@@ -2,7 +2,6 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import random
 import os
-from boto.s3.connection import S3Connection
 
 TOKEN = os.environ['API_KEY']
 PORT = int(os.environ.get('PORT', '8443'))
