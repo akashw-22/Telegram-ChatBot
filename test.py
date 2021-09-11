@@ -4,7 +4,7 @@ import random
 import os
 
 TOKEN = os.environ['API_KEY']
-PORT = os.environ['PORT']
+PORT = os.environ.get('PORT')
 URL = os.environ['URL']
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
