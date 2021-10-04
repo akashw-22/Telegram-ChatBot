@@ -1,4 +1,4 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+d from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import random
 import os
@@ -13,7 +13,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 updater = Updater(token = TOKEN, use_context = True) #Use the api key given from BotFather
 dispatcher = updater.dispatcher
 
-theri = ["andi", "punda", "koothi", "myran", "shuklam", "beejam", "poori", "kakkos", "pundachi", "punda", "shuklamtheeni", "Kannappi", "thayli"]
+theri = ["andi", "punda", "koothi", "myran", "shuklam", "beejam", "poori", "kakkos", "pundachi", "punda", "shuklamtheeni", "Kannappi", "thayli", "ശുക്ലമുഖൻ പുണ്ഡചി", "പപ്പടം പൂറി പുണ്ടച്ചി", "വ്യാകൻസിഎജെ പൂറിമോനെ", "വ്യാകൻസിഎജെ പൂറിമോനെ", "ചിണ്ടമൈരൻ കത്രിക്കകുണ്ണ", "വവ്വാൽ കുണ്ണ തയൊളി"]
 
 
 def start(update, context):
