@@ -1,4 +1,4 @@
-d from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import random
 import os
