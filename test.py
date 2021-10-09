@@ -71,9 +71,13 @@ def theri(update, context):
             conn = psycopg2.connect(DATABASE)
             cursor = conn.cursor()
             cursor.execute('insert into theri (theri) values (%s);', (theri,))
-            reply += cursor.fetchall()
-
-        reply = 'theri poottikkettind'
+            try:
+                reply = cursor.fetchall()
+            except:
+                pass
+                
+        if reply == '':
+            reply = 'theri poottikkettind'
 
     print(reply)
     context.bot.sendMessage(chat_id = update.effective_chat.id, text = reply)
