@@ -70,8 +70,9 @@ def theri(update, context):
         for theri in theris:
             conn = psycopg2.connect(DATABASE)
             cursor = conn.cursor()
-            cursor.execute(f"insert into (theri) values ('{theri})''")
-
+            cursor.execute(f"insert into (theri) values ('{theri}')")
+            reply += cursor.fetchall()
+        
         reply = 'theri poottikkettind'
 
     print(reply)
