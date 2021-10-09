@@ -74,6 +74,7 @@ def theri(update, context):
 
         reply = 'theri poottikkettind'
 
+    print(reply)
     context.bot.sendMessage(chat_id = update.effective_chat.id, text = reply)
 
 startHandler = CommandHandler('start', start)
