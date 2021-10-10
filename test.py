@@ -9,6 +9,7 @@ PORT = os.environ.get('PORT')
 URL = os.environ['URL']
 DATABASE = os.environ['DATABASE']
 
+
 conn = psycopg2.connect(DATABASE)
 cursor = conn.cursor()
 
@@ -22,6 +23,7 @@ theri = []
 
 def updatetheri():
     cursor.execute("select theri from theri")
+    global theri
     theri = cursor.fetchall()
 
 def start(update, context):
@@ -53,12 +55,13 @@ def echo(update, context):
             out = 'pooran nintappan'
         else:
             out = words[1] + ' ' + random.choice(theri)[0]
+
     else:
         return
 
     context.bot.sendMessage(chat_id = update.effective_chat.id, text = out)
 
-def theri(update, context):
+def therikett(update, context):
 
     reply = ''
 
@@ -75,11 +78,10 @@ def theri(update, context):
 
         for theri in theris:
 
-            cursor.execute('insert into theri (theri) values (%s);', (theri,))
             try:
-                reply = "OOMBI" + cursor.fetchall()
+                cursor.execute('insert into theri (theri) values (%s);', (theri,))
             except:
-                pass
+                reply = "OOMBI"
 
         if reply == '':
             reply = 'theri poottikkettind'
@@ -91,10 +93,12 @@ def theri(update, context):
     print(reply)
     context.bot.sendMessage(chat_id = update.effective_chat.id, text = reply)
 
+updatetheri()
+
 startHandler = CommandHandler('start', start)
 echoHandler = MessageHandler(Filters.text & (~Filters.command), echo)
 pooreHandler = CommandHandler('poore', poore)
-theriHandler = CommandHandler('theri', theri)
+theriHandler = CommandHandler('theri', therikett)
 dispatcher.add_handler(startHandler)
 dispatcher.add_handler(echoHandler)
 dispatcher.add_handler(pooreHandler)
@@ -103,4 +107,6 @@ updater.start_webhook(listen="0.0.0.0",
                       port=PORT,
                       url_path=TOKEN,
                       webhook_url= URL + TOKEN)
+
+#updater.start_polling()
 updater.idle()
