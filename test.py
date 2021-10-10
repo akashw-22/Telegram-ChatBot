@@ -54,6 +54,9 @@ def echo(update, context):
 
 def theri(update, context):
 
+    conn = psycopg2.connect(DATABASE)
+    cursor = conn.cursor()
+
     reply = ''
 
     if(len(context.args) == 0):
@@ -68,16 +71,17 @@ def theri(update, context):
         theris = theristr.split(',')
 
         for theri in theris:
-            conn = psycopg2.connect(DATABASE)
-            cursor = conn.cursor()
+
             cursor.execute('insert into theri (theri) values (%s);', (theri,))
             try:
                 reply = cursor.fetchall()
             except:
                 pass
-                
+
         if reply == '':
             reply = 'theri poottikkettind'
+
+        conn.commit()
 
     print(reply)
     context.bot.sendMessage(chat_id = update.effective_chat.id, text = reply)
