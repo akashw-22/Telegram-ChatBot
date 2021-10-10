@@ -7,7 +7,7 @@ import psycopg2
 TOKEN = os.environ['API_KEY']
 PORT = os.environ.get('PORT')
 URL = os.environ['URL']
-DATABASE = "postgres://tfljkvwj:IbnOgi6XgAbgYF6LlO1Hdd9JzJYlwzvt@john.db.elephantsql.com/tfljkvwj"
+DATABASE = os.environ['DATABASE']
 
 conn = psycopg2.connect(DATABASE)
 cursor = conn.cursor()
@@ -52,7 +52,7 @@ def echo(update, context):
         if len(words) == 1:
             out = 'pooran nintappan'
         else:
-            out = words[1] + ' ' + random.choice(theri[0])
+            out = words[1] + ' ' + random.choice(theri)[0]
     else:
         return
 
