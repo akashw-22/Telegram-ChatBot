@@ -9,14 +9,20 @@ PORT = os.environ.get('PORT')
 URL = os.environ['URL']
 DATABASE = "postgres://tfljkvwj:IbnOgi6XgAbgYF6LlO1Hdd9JzJYlwzvt@john.db.elephantsql.com/tfljkvwj"
 
+conn = psycopg2.connect(DATABASE)
+cursor = conn.cursor()
+
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                      level=logging.INFO)
 
 updater = Updater(token = TOKEN, use_context = True) #Use the api key given from BotFather
 dispatcher = updater.dispatcher
 
-theri = ["andi", "punda", "koothi", "myran", "shuklam", "beejam", "poori", "kakkos", "pundachi", "punda", "shuklamtheeni", "Kannappi", "thayli", "ശുക്ലമുഖൻ പുണ്ഡചി", "പപ്പടം പൂറി പുണ്ടച്ചി", "വ്യാകൻസിഎജെ പൂറിമോനെ", "വ്യാകൻസിഎജെ പൂറിമോനെ", "ചിണ്ടമൈരൻ കത്രിക്കകുണ്ണ", "വവ്വാൽ കുണ്ണ തയൊളി"]
+theri = []
 
+def updatetheri():
+    cursor.execute("select theri from theri")
+    theri = cursor.fetchall()
 
 def start(update, context):
     context.bot.sendMessage(chat_id = update.effective_chat.id, text = "Oombikko myre Ente andi oomban vannathaana??")
@@ -46,16 +52,13 @@ def echo(update, context):
         if len(words) == 1:
             out = 'pooran nintappan'
         else:
-            out = words[1] + ' ' + random.choice(theri)
+            out = words[1] + ' ' + random.choice(theri[0])
     else:
         return
 
     context.bot.sendMessage(chat_id = update.effective_chat.id, text = out)
 
 def theri(update, context):
-
-    conn = psycopg2.connect(DATABASE)
-    cursor = conn.cursor()
 
     reply = ''
 
@@ -74,7 +77,7 @@ def theri(update, context):
 
             cursor.execute('insert into theri (theri) values (%s);', (theri,))
             try:
-                reply = cursor.fetchall()
+                reply = "OOMBI" + cursor.fetchall()
             except:
                 pass
 
@@ -82,6 +85,8 @@ def theri(update, context):
             reply = 'theri poottikkettind'
 
         conn.commit()
+
+        updatetheri()
 
     print(reply)
     context.bot.sendMessage(chat_id = update.effective_chat.id, text = reply)
