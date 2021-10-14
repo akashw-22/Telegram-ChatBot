@@ -72,7 +72,7 @@ def therikett(update, context):
         theristr = ''
 
         for i in context.args:
-            theristr += i
+            theristr += i + ' '
 
         theris = theristr.split(',')
 
